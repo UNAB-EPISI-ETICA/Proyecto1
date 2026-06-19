@@ -1,186 +1,133 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Proyecto Digital QR - UNAB</title>
-
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        color: white;
-        overflow-y: scroll;
-        background: linear-gradient(120deg, #001f3f, #005f9e, #003b63);
-        background-size: 300% 300%;
-        animation: moverFondo 12s ease infinite;
-    }
-
-    @keyframes moverFondo {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    .container {
-        text-align: center;
-        padding: 50px 20px;
-    }
-
-    /* ====== MODIFICACIÓN PEDIDA ====== */
-    .logos img:first-child {
-        width: 300px;  /* Imagen izquierda más grande */
-    }
-
-    .logos img:last-child {
-        width: 120px;  /* Imagen derecha igual */
-    }
-
-    .logos img {
-        animation: flotar 3s ease-in-out infinite;
-    }
-    /* ================================= */
-
-    .logos {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        max-width: 900px;
-        margin: auto;
-        margin-bottom: 20px;
-    }
-
-    @keyframes flotar {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-8px); }
-        100% { transform: translateY(0px); }
-    }
-
-    .qr-row {
-        display: flex;
-        justify-content: center;
-        gap: 40px;
-        flex-wrap: wrap;
-        margin-top: 30px;
-    }
-
-    .qr-box {
-        background: rgba(255, 255, 255, 0.14);
-        padding: 20px;
-        border-radius: 15px;
-        width: 350px;
-        backdrop-filter: blur(4px);
-        animation: fadeIn 1.2s ease;
-        text-align: center;
-    }
-
-    .qr-box img {
-        width: 100%;
-        border-radius: 10px;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    footer {
-        margin-top: 40px;
-        text-align: center;
-        padding-bottom: 40px;
-    }
-
-    .footer-box {
-        background: rgba(0, 102, 204, 0.75);
-        display: inline-block;
-        padding: 15px 25px;
-        border-radius: 12px;
-        font-size: 14px;
-        margin-bottom: 15px;
-    }
-
-    .nombres-box {
-        background: rgba(0, 0, 0, 0.40);
-        padding: 12px 20px;
-        border-radius: 12px;
-        display: inline-block;
-        font-size: 13px;
-        max-width: 90%;
-    }
-
-    a {
-        color: #fff;
-        font-size: 12px;
-        word-break: break-all;
-    }
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pymesmart - Sistema de Gestión SaaS</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="container">
+    <header>
+        <h1>Pymesmart <span>• Panel</span></h1>
+        <nav>
+            <button id="nav-dashboard" class="nav-btn active" onclick="switchSection('dashboard')">Dashboard</button>
+            <button id="nav-integrantes" class="nav-btn" onclick="switchSection('integrantes')">Integrantes</button>
+        </nav>
+        <div class="badge-online">Servicio activo</div>
+    </header>
 
-    <!-- Logos izquierda derecha -->
-    <div class="logos">
-        <img src="LOGOxd.png">
-        <img src="ing.png">
-    </div>
+    <div class="container">
+        
+        <div id="section-dashboard" class="app-section active-section">
+            <div class="kpi-grid">
+                <div class="kpi-card success">
+                    <div class="kpi-title">Ganancia Neta Hoy</div>
+                    <div class="kpi-value" id="kpi-ganancia">S/ 142.50</div>
+                    <div class="kpi-sub">Margen promedio: 35%</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title">Productos Disponibles</div>
+                    <div class="kpi-value" id="count-disponibles">18</div>
+                    <div class="kpi-sub">En stock saludable</div>
+                </div>
+                <div class="kpi-card warning">
+                    <div class="kpi-title">Stock Bajo</div>
+                    <div class="kpi-value" id="count-bajo">2</div>
+                    <div class="kpi-sub">Requiere revisión pronto</div>
+                </div>
+                <div class="kpi-card danger">
+                    <div class="kpi-title">Agotados / Sin Stock</div>
+                    <div class="kpi-value" id="count-agotados">2</div>
+                    <div class="kpi-sub">Pérdida de venta potencial</div>
+                </div>
+            </div>
 
-    <h1>Proyecto Digital QR - UNAB</h1>
+            <div class="main-layout">
+                <div>
+                    <div class="panel">
+                        <div class="panel-title">
+                            <span>Punto de Venta Rápido</span>
+                            <small style="font-weight: normal; font-size:12px; color:#64748b;">Haz clic para vender al instante</small>
+                        </div>
+                        <div class="pos-grid" id="pos-products"></div>
+                    </div>
 
-    <!-- QR EN FILA, UNO AL LADO DEL OTRO -->
-    <div class="qr-row">
+                    <div class="panel">
+                        <div class="panel-title">Monitoreo de Inventario Actual</div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Precio Venta</th>
+                                        <th>Costo Compra</th>
+                                        <th>Stock</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="inventory-table"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- QR 1 -->
-        <div class="qr-box">
-            <h3>Enlace del Story Book</h3>
-            <img src="qr-code.png">
-            <p>
-                <a href="https://gemini.google.com/share/2c74e42b8f30">
-                    https://gemini.google.com/share/2c74e42b8f30
-                </a>
-            </p>
+                <div>
+                    <div class="panel">
+                        <div class="panel-title">Caja y Ventas de Hoy</div>
+                        <div class="cart-list" id="recent-sales">
+                            <div style="color: #94a3b8; text-align: center; padding: 20px; font-size: 13px;">Registra una venta para actualizar la caja...</div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-title">
+                            <span>Ganancias Históricas</span>
+                            <div class="tabs">
+                                <div class="tab active" id="tab-2025" onclick="switchYear(2025)">2025</div>
+                                <div class="tab" id="tab-2024" onclick="switchYear(2024)">2024</div>
+                            </div>
+                        </div>
+                        <p style="font-size: 12px; color: #64748b; margin-bottom: 10px;">Evolución de ganancias mensuales netas deducidas de costos operacionales.</p>
+                        <div class="chart-container" id="chart-box"></div>
+                        <div class="chart-labels">
+                            <span>Ene-Mar</span>
+                            <span>Abr-Jun</span>
+                            <span>Jul-Sep</span>
+                            <span>Oct-Dic</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- QR 2 (nuevo QR correcto) -->
-        <div class="qr-box">
-            <h3>Enlace del Formulario</h3>
-            <img src="qr-code (1).png">
-            <p>
-                <a href="https://forms.gle/3XVmRvw61Juw48Yi7">
-                    https://forms.gle/3XVmRvw61Juw48Yi7
-                </a>
-            </p>
+        <div id="section-integrantes" class="app-section">
+            <div class="panel">
+                <div class="panel-title">Desarrolladores del Sistema</div>
+                <p style="font-size: 14px; color: #64748b; margin-bottom: 20px;">Miembros del equipo a cargo del diseño, despliegue y mantenimiento técnico de Pymesmart.</p>
+                
+                <div class="team-grid">
+                    <div class="member-card">
+                        <div class="member-avatar">RM</div>
+                        <div class="member-name">Rivera Meza Jose Octavio</div>
+                        <div class="member-role">Fullstack Developer</div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-avatar">LM</div>
+                        <div class="member-name">Lopez Manzhego Jamir Cesar</div>
+                        <div class="member-role">UI/UX Designer</div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-avatar">PZ</div>
+                        <div class="member-name">Pantoja Zorrilla Leonel Alexander</div>
+                        <div class="member-role">Database Administrator</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
 
-</div>
-
-<!-- Footer -->
-<footer>
-    <div class="footer-box">
-        <p>© 2025 Universidad Nacional Autónoma de Barranca — UNAB<br>
-        Facultad de Ciencias e Ingeniería | Proyecto Digital QR</p>
-    </div>
-
-    <br>
-
-    <div class="nombres-box">
-        <strong>Integrantes:</strong><br>
-        Giraldo Hidaldo Elvis Giovani |
-        Huaman Gomez Jhon Kenny |
-        López Manchego Jamir Cesar |
-        Pantoja Zorrilla Leonel Alexander |
-        Rivera Meza José Octavio |
-        Bueno Vega Lenin Antonio |
-        Villaflor Trujillo Gamaliel Nicky |
-        Castillo Espinoza Dangelo Jose Jesus |
-        Rodriguez Saavedra Gerardo Daniel
-    </div>
-</footer>
-
+    <script src="app.js"></script>
 </body>
 </html>
