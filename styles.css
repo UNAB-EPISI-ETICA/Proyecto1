@@ -1,0 +1,334 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f6f9;
+    color: #333;
+    display: block;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #1e293b;
+    color: #ffffff;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* Sistema de Navegación por botones */
+nav {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-btn {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.nav-btn:hover {
+    color: #ffffff;
+    background: #334155;
+}
+
+.nav-btn.active {
+    color: #ffffff;
+    background: #3b82f6;
+}
+
+header .badge-online {
+    background-color: #10b981;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+/* Control de secciones SPA */
+.app-section {
+    display: none;
+}
+
+.app-section.active-section {
+    display: block;
+}
+
+/* Indicadores Principales - Kpis */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.kpi-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border-left: 5px solid #3b82f6;
+    position: relative;
+}
+
+.kpi-card.success { border-left-color: #10b981; }
+.kpi-card.warning { border-left-color: #f59e0b; }
+.kpi-card.danger { border-left-color: #ef4444; }
+
+.kpi-title {
+    font-size: 13px;
+    color: #64748b;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.kpi-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.kpi-sub {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 5px;
+}
+
+/* Layout de Trabajo */
+.main-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+@media (min-width: 900px) {
+    .main-layout {
+        grid-template-columns: 1.2fr 0.8fr;
+    }
+}
+
+.panel {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.panel-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 8px;
+}
+
+/* Punto de Venta Rápido (POS) */
+.pos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+}
+
+.pos-item {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pos-item:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+    transform: translateY(-2px);
+}
+
+.pos-item.out-of-stock {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #f1f5f9;
+}
+
+.pos-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 5px;
+}
+
+.pos-price {
+    font-size: 13px;
+    color: #10b981;
+    font-weight: 700;
+}
+
+.pos-stock {
+    font-size: 11px;
+    color: #64748b;
+    margin-top: 4px;
+}
+
+/* Carrito / Registro */
+.cart-list {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 14px;
+}
+
+/* Tablas */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+th {
+    background-color: #f8fafc;
+    color: #64748b;
+    padding: 10px;
+    font-weight: 600;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+}
+
+.status-pill {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.status-pill.green { background: #d1fae5; color: #065f46; }
+.status-pill.yellow { background: #fef3c7; color: #92400e; }
+.status-pill.red { background: #fee2e2; color: #991b1b; }
+
+/* Gráfico SVG */
+.chart-container {
+    position: relative;
+    margin-top: 15px;
+}
+
+.chart-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #64748b;
+    margin-top: 5px;
+    padding: 0 10px;
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.tab {
+    padding: 6px 12px;
+    background: #e2e8f0;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #475569;
+}
+
+.tab.active {
+    background: #1e293b;
+    color: white;
+}
+
+/* Grilla de Integrantes */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.member-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.member-avatar {
+    width: 50px;
+    height: 50px;
+    background: #3b82f6;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin: 0 auto 12px auto;
+}
+
+.member-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 4px;
+}
+
+.member-role {
+    font-size: 12px;
+    color: #64748b;
+}
